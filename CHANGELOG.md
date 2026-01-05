@@ -1,3 +1,11 @@
+## 1.1.2
+### Changed
+* Proxy handling, you can now remove proxy using `client.proxy = None`
+* `client._session` is now public -> `client.session`
+
+### Added
+* Proxy example at [examples/proxy.py](examples/proxy.py)
+
 ## 1.1.1
 ### Added
 * Optional `scheme` attribute on the Proxy dataclass, allowing custom proxy URL schemes (#7)
