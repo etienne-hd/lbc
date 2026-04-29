@@ -1,24 +1,27 @@
-from typing import Optional, Union, List
-
 from ..model import Category, Sort, Region, Department, City, AdType, OwnerType, Search
 from ..utils import build_search_payload_with_args, build_search_payload_with_url
+
 
 class SearchMixin:
     def search(
         self,
-        url: Optional[str] = None,
-        text: Optional[str] = None,
+        url: str | None = None,
+        text: str | None = None,
         category: Category = Category.TOUTES_CATEGORIES,
         sort: Sort = Sort.RELEVANCE,
-        locations: Optional[Union[List[Union[Region, Department, City]], Union[Region, Department, City]]] = None, 
-        limit: int = 35, 
-        limit_alu: int = 3, 
-        page: int = 1, 
+        locations: list[Region, Department, City]
+        | Region
+        | Department
+        | City
+        | None = None,
+        limit: int = 35,
+        limit_alu: int = 3,
+        page: int = 1,
         ad_type: AdType = AdType.OFFER,
-        owner_type: Optional[OwnerType] = None,
-        shippable: Optional[bool] = None,
+        owner_type: OwnerType | None = None,
+        shippable: bool | None = None,
         search_in_title_only: bool = False,
-        **kwargs
+        **kwargs,
     ) -> Search:
         """
         Perform a classified ads search on Leboncoin with the specified criteria.
@@ -28,7 +31,7 @@ class SearchMixin:
         - Or use the individual parameters (`text`, `category`, `locations`, etc.) to construct a custom search.
 
         Args:
-            url (Optional[str], optional): A full Leboncoin search URL. If provided, all other parameters will be ignored and the search will replicate the results from the URL.            
+            url (Optional[str], optional): A full Leboncoin search URL. If provided, all other parameters will be ignored and the search will replicate the results from the URL.
             text (Optional[str], optional): Search keywords. If None, returns all matching ads without filtering by keyword. Defaults to None.
             category (Category, optional): Category to search in. Defaults to Category.TOUTES_CATEGORIES.
             sort (Sort, optional): Sorting method for results (e.g., relevance, date, price). Defaults to Sort.RELEVANCE.
@@ -46,15 +49,24 @@ class SearchMixin:
             Search: A `Search` object containing the parsed search results.
         """
         if url:
-            payload = build_search_payload_with_url(
-                url=url, limit=limit, page=page
-            )
+            payload = build_search_payload_with_url(url=url, limit=limit, page=page)
         else:
             payload = build_search_payload_with_args(
-                text=text, category=category, sort=sort, locations=locations, 
-                limit=limit, limit_alu=limit_alu, page=page, ad_type=ad_type,
-                owner_type=owner_type, shippable=shippable, search_in_title_only=search_in_title_only, **kwargs
+                text=text,
+                category=category,
+                sort=sort,
+                locations=locations,
+                limit=limit,
+                limit_alu=limit_alu,
+                page=page,
+                ad_type=ad_type,
+                owner_type=owner_type,
+                shippable=shippable,
+                search_in_title_only=search_in_title_only,
+                **kwargs,
             )
 
-        body = self._fetch(method="POST", url="https://api.leboncoin.fr/finder/search", payload=payload)
+        body = self._fetch(
+            method="POST", url="https://api.leboncoin.fr/finder/search", payload=payload
+        )
         return Search._build(raw=body, client=self)

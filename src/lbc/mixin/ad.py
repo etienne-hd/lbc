@@ -1,9 +1,8 @@
-from typing import Union
-
 from ..model import Ad
 
+
 class AdMixin:
-    def get_ad(self, ad_id: Union[str, int]) -> Ad:
+    def get_ad(self, ad_id: str | int) -> Ad:
         """
         Retrieve detailed information about a classified ad using its ID.
 
@@ -17,5 +16,8 @@ class AdMixin:
         Returns:
             Ad: An `Ad` object containing the parsed ad information.
         """
-        body = self._fetch(method="GET", url=f"https://api.leboncoin.fr/api/adfinder/v1/classified/{ad_id}")
+        body = self._fetch(
+            method="GET",
+            url=f"https://api.leboncoin.fr/api/adfinder/v1/classified/{ad_id}",
+        )
         return Ad._build(raw=body, client=self)
