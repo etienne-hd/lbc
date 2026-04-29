@@ -3,18 +3,12 @@ name = "lbc"
 version = "1.1.2"
 description = "Unofficial client for Leboncoin API"
 readme = "README.md"
-license = {text = "MIT"}
-requires-python = ">=3.9"
-
 authors = [
-  {name = "Etienne HODE", email = "hode.etienne@gmail.com"}
+    { name = "etienne-hd", email = "hode.etienne@gmail.com" }
 ]
-maintainers = [
-  {name = "Etienne HODE", email = "hode.etienne@gmail.com"}
-]
-
+requires-python = ">=3.10"
 dependencies = [
-  "curl_cffi==0.11.3"
+    "curl-cffi>=0.15.0",
 ]
 
 keywords = ["lbc", "leboncoin", "wrapper", "api"]
@@ -25,5 +19,5 @@ Repository = "https://github.com/etienne-hd/lbc"
 Changelog = "https://github.com/etienne-hd/lbc/blob/main/CHANGELOG.md"
 
 [build-system]
-requires = ["hatchling"]
-build-backend = "hatchling.build"
+requires = ["uv_build>=0.11.7,<0.12.0"]
+build-backend = "uv_build"
