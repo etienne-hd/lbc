@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 
+
 @dataclass
 class Reply:
     in_minutes: int

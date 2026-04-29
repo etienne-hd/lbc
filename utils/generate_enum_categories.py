@@ -1,5 +1,6 @@
 import lbc
 
+
 def transform_str(string: str) -> str:
     return (
         string.strip()
