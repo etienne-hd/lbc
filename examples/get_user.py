@@ -2,6 +2,7 @@
 
 import lbc
 
+
 def main() -> None:
     # Initialize the Leboncoin API client
     client = lbc.Client()
@@ -15,6 +16,7 @@ def main() -> None:
     print("Name:", user.name)
     print("Pro status:", user.is_pro)
     print("Ads count:", user.total_ads)
+
 
 if __name__ == "__main__":
     main()
