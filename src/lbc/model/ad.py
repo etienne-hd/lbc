@@ -1,7 +1,8 @@
 from dataclasses import dataclass
-from typing import List, Any, Optional
+from typing import Any
 
 from .user import User
+
 
 @dataclass
 class Location:
@@ -19,16 +20,18 @@ class Location:
     provider: str
     is_shape: bool
 
+
 @dataclass
 class Attribute:
     key: str
-    key_label: Optional[str]
+    key_label: str | None
     value: str
     value_label: str
-    values: List[str]
-    values_label: Optional[List[str]]
-    value_label_reader: Optional[str]
+    values: list[str]
+    values_label: list[str] | None
+    value_label_reader: str | None
     generic: bool
+
 
 @dataclass
 class Ad:
@@ -45,11 +48,11 @@ class Ad:
     ad_type: str
     url: str
     price: float
-    images: List[str]
-    attributes: List[Attribute]
+    images: list[str]
+    attributes: list[Attribute]
     location: Location
     has_phone: bool
-    favorites: int # Unvailaible on Ad from Search 
+    favorites: int  # Unavailable on Ad from Search
 
     _client: Any
     _user_id: str
@@ -57,7 +60,7 @@ class Ad:
 
     @staticmethod
     def _build(raw: dict, client: Any) -> "Ad":
-        attributes: List[Attribute] = []
+        attributes: list[Attribute] = []
         for raw_attribute in raw.get("attributes", []):
             attributes.append(
                 Attribute(
@@ -68,10 +71,10 @@ class Ad:
                     values=raw_attribute.get("values"),
                     values_label=raw_attribute.get("values_label"),
                     value_label_reader=raw_attribute.get("value_label_reader"),
-                    generic=raw_attribute.get("generic")
+                    generic=raw_attribute.get("generic"),
                 )
             )
-        
+
         raw_location: dict = raw.get("location", {})
         location = Location(
             country_id=raw_location.get("country_id"),
@@ -86,9 +89,9 @@ class Ad:
             lng=raw_location.get("lng"),
             source=raw_location.get("source"),
             provider=raw_location.get("provider"),
-            is_shape=raw_location.get("is_shape")
+            is_shape=raw_location.get("is_shape"),
         )
-        
+
         raw_owner: dict = raw.get("owner", {})
         return Ad(
             id=raw.get("list_id"),
@@ -111,13 +114,13 @@ class Ad:
             favorites=raw.get("counters", {}).get("favorites"),
             _client=client,
             _user_id=raw_owner.get("user_id"),
-            _user=None
+            _user=None,
         )
 
     @property
     def title(self) -> str:
         return self.subject
-    
+
     @property
     def user(self) -> User:
         if self._user is None:

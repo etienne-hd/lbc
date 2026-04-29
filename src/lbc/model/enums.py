@@ -1,13 +1,16 @@
 from enum import Enum
 
+
 class OwnerType(Enum):
     PRO = "pro"
     PRIVATE = "private"
     ALL = "all"
 
+
 class AdType(Enum):
     OFFER = "offer"
     DEMAND = "demand"
+
 
 class Sort(Enum):
     RELEVANCE = ("relevance", None)
@@ -15,6 +18,7 @@ class Sort(Enum):
     OLDEST = ("time", "asc")
     EXPENSIVE = ("price", "asc")
     CHEAPEST = ("price", "desc")
+
 
 class Department(Enum):
     BAS_RHIN = ("1", "ALSACE", "67", "BAS_RHIN")
@@ -97,7 +101,12 @@ class Department(Enum):
     CHARENTE_MARITIME = ("20", "POITOU_CHARENTES", "17", "CHARENTE_MARITIME")
     DEUX_SEVRES = ("20", "POITOU_CHARENTES", "79", "DEUX_SEVRES")
     VIENNE = ("20", "POITOU_CHARENTES", "86", "VIENNE")
-    ALPES_DE_HAUTE_PROVENCE = ("21", "PROVENCE_ALPES_COTE_DAZUR", "4", "ALPES_DE_HAUTE_PROVENCE")
+    ALPES_DE_HAUTE_PROVENCE = (
+        "21",
+        "PROVENCE_ALPES_COTE_DAZUR",
+        "4",
+        "ALPES_DE_HAUTE_PROVENCE",
+    )
     HAUTES_ALPES = ("21", "PROVENCE_ALPES_COTE_DAZUR", "5", "HAUTES_ALPES")
     ALPES_MARITIMES = ("21", "PROVENCE_ALPES_COTE_DAZUR", "6", "ALPES_MARITIMES")
     BOUCHES_DU_RHONE = ("21", "PROVENCE_ALPES_COTE_DAZUR", "13", "BOUCHES_DU_RHONE")
@@ -111,6 +120,7 @@ class Department(Enum):
     RHONE = ("22", "RHONE_ALPES", "69", "RHONE")
     SAVOIE = ("22", "RHONE_ALPES", "73", "SAVOIE")
     HAUTE_SAVOIE = ("22", "RHONE_ALPES", "74", "HAUTE_SAVOIE")
+
 
 class Region(Enum):
     ALSACE = ("1", "ALSACE")
@@ -147,6 +157,7 @@ class Region(Enum):
     PROVENCE_ALPES_COTE_DAZUR = ("21", "PROVENCE_ALPES_COTE_DAZUR")
     RHONE_ALPES = ("22", "RHONE_ALPES")
     REUNION = ("26", "REUNION")
+
 
 class Category(Enum):
     TOUTES_CATEGORIES = "0"

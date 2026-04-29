@@ -1,7 +1,8 @@
 from dataclasses import dataclass
-from typing import List, Any
+from typing import Any
 
 from .ad import Ad
+
 
 @dataclass
 class Search:
@@ -13,14 +14,11 @@ class Search:
     total_inactive: int
     total_shippable: int
     max_pages: int
-    ads: List[Ad]
+    ads: list[Ad]
 
     @staticmethod
     def _build(raw: dict, client: Any) -> "Search":
-        ads: List[Ad] = [
-            Ad._build(raw=ad, client=client)
-            for ad in raw.get("ads", [])
-        ]
+        ads: list[Ad] = [Ad._build(raw=ad, client=client) for ad in raw.get("ads", [])]
 
         return Search(
             total=raw.get("total"),

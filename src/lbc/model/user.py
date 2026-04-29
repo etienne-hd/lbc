@@ -1,5 +1,4 @@
 from dataclasses import dataclass
-from typing import List, Optional
 
 @dataclass
 class Reply:
@@ -9,6 +8,7 @@ class Reply:
     rate: int
     reply_time_text: str
 
+
 @dataclass
 class Presence:
     status: str
@@ -16,10 +16,12 @@ class Presence:
     last_activity: str
     enabled: bool
 
+
 @dataclass
 class Badge:
     type: str
     name: str
+
 
 @dataclass
 class Feedback:
@@ -39,6 +41,7 @@ class Feedback:
     def score(self) -> float:
         return self.overall_score * 5 if self.overall_score else None
 
+
 @dataclass
 class Location:
     address: str
@@ -56,12 +59,14 @@ class Location:
     department_label: str
     country: str
 
+
 @dataclass
 class Review:
     author_name: str
     rating_value: int
     text: str
     review_time: str
+
 
 @dataclass
 class Rating:
@@ -71,7 +76,8 @@ class Rating:
     source_display: str
     retrieval_time: str
     url: str
-    reviews: List[Review]
+    reviews: list[Review]
+
 
 @dataclass
 class Pro:
@@ -93,6 +99,7 @@ class Pro:
     website_url: str
     rating: Rating
 
+
 @dataclass
 class User:
     id: str
@@ -103,15 +110,15 @@ class User:
     profile_picture: str
     reply: Reply
     presence: Presence
-    badges: List[Badge]
+    badges: list[Badge]
     total_ads: int
     store_id: int
     account_type: str
     description: str
-    pro: Optional[Pro]
+    pro: Pro | None
 
     @staticmethod
-    def _build(user_data: dict, pro_data: Optional[dict]) -> "User":
+    def _build(user_data: dict, pro_data: dict | None) -> "User":
         raw_feedback = user_data.get("feedback", {})
         feedback = Feedback(
             overall_score=raw_feedback.get("overall_score"),
@@ -120,11 +127,15 @@ class User:
             conformity=raw_feedback.get("category_scores", {}).get("CONFORMITY"),
             package=raw_feedback.get("category_scores", {}).get("PACKAGE"),
             product=raw_feedback.get("category_scores", {}).get("PRODUCT"),
-            recommendation=raw_feedback.get("category_scores", {}).get("RECOMMENDATION"),
+            recommendation=raw_feedback.get("category_scores", {}).get(
+                "RECOMMENDATION"
+            ),
             respect=raw_feedback.get("category_scores", {}).get("RESPECT"),
             transaction=raw_feedback.get("category_scores", {}).get("TRANSACTION"),
-            user_attention=raw_feedback.get("category_scores", {}).get("USER_ATTENTION"),
-            received_count=raw_feedback.get("received_count")
+            user_attention=raw_feedback.get("category_scores", {}).get(
+                "USER_ATTENTION"
+            ),
+            received_count=raw_feedback.get("received_count"),
         )
 
         raw_reply = user_data.get("reply", {})
@@ -133,7 +144,7 @@ class User:
             text=raw_reply.get("text"),
             rate_text=raw_reply.get("rate_text"),
             rate=raw_reply.get("rate"),
-            reply_time_text=raw_reply.get("reply_time_text")
+            reply_time_text=raw_reply.get("reply_time_text"),
         )
 
         raw_presence = user_data.get("presence", {})
@@ -141,7 +152,7 @@ class User:
             status=raw_presence.get("status"),
             presence_text=raw_presence.get("presence_text"),
             last_activity=raw_presence.get("last_activity"),
-            enabled=raw_presence.get("enabled")
+            enabled=raw_presence.get("enabled"),
         )
 
         badges = [
@@ -166,7 +177,7 @@ class User:
                 region_label=raw_pro_location.get("region_label"),
                 department=raw_pro_location.get("department"),
                 department_label=raw_pro_location.get("dpt_label"),
-                country=raw_pro_location.get("country")
+                country=raw_pro_location.get("country"),
             )
 
             raw_pro_rating = pro_data.get("rating", {})
@@ -175,7 +186,7 @@ class User:
                     author_name=review.get("author_name"),
                     rating_value=review.get("rating_value"),
                     text=review.get("text"),
-                    review_time=review.get("review_time")
+                    review_time=review.get("review_time"),
                 )
                 for review in raw_pro_rating.get("reviews", [])
             ]
@@ -187,12 +198,12 @@ class User:
                 source_display=raw_pro_rating.get("source_display"),
                 retrieval_time=raw_pro_rating.get("retrieval_time"),
                 url=raw_pro_rating.get("url"),
-                reviews=pro_rating_reviews
+                reviews=pro_rating_reviews,
             )
-            
+
             pro_owner = pro_data.get("owner", {})
             pro_brand = pro_data.get("brand", {})
-            pro_information	= pro_data.get("information", {})
+            pro_information = pro_data.get("information", {})
             pro = Pro(
                 online_store_id=pro_data.get("online_store_id"),
                 online_store_name=pro_data.get("online_store_name"),
@@ -210,7 +221,7 @@ class User:
                 description=pro_information.get("description"),
                 opening_hours=pro_information.get("opening_hours"),
                 website_url=pro_information.get("website_url"),
-                rating=pro_rating
+                rating=pro_rating,
             )
 
         return User(
@@ -227,9 +238,9 @@ class User:
             store_id=user_data.get("store_id"),
             account_type=user_data.get("account_type"),
             description=user_data.get("description"),
-            pro=pro
+            pro=pro,
         )
-    
+
     @property
     def is_pro(self):
         return self.account_type == "pro"

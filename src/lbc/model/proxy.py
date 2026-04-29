@@ -1,12 +1,11 @@
 from dataclasses import dataclass
-from typing import Union, Optional
 
 @dataclass
 class Proxy:
     host: str
-    port: Union[str, int]
-    username: Optional[str] = None
-    password: Optional[str] = None
+    port: str | int
+    username: str | None = None
+    password: str | None = None
     scheme: str = "http"
 
     @property
