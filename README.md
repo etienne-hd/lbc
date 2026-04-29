@@ -35,7 +35,7 @@ for ad in result.ads:
 *lbc is not affiliated with, endorsed by, or in any way associated with Leboncoin or its services. Use at your own risk.*
 
 ## Installation
-Required **Python 3.9+**
+Required **Python 3.10+**
 ```bash
 pip install lbc
 ```
