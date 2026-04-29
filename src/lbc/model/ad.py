@@ -1,4 +1,4 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Any
 
 from .user import User
@@ -54,9 +54,9 @@ class Ad:
     has_phone: bool
     favorites: int  # Unavailable on Ad from Search
 
-    _client: Any
-    _user_id: str
-    _user: User
+    _client: Any = field(repr=False)
+    _user_id: str = field(repr=False)
+    _user: User = field(repr=False)
 
     @staticmethod
     def _build(raw: dict, client: Any) -> "Ad":
