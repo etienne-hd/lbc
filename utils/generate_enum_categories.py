@@ -1,6 +1,4 @@
 import lbc
-from typing import Optional
-
 
 def transform_str(string: str) -> str:
     return (
@@ -22,7 +20,7 @@ def transform_str(string: str) -> str:
     )
 
 
-def print_category(category_data: dict, category_name: Optional[str] = None) -> None:
+def print_category(category_data: dict, category_name: str | None = None) -> None:
     label: str = category_data["label"]
     category_name: str = transform_str(category_name) if category_name else None
     label = transform_str(label)
