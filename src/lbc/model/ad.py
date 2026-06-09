@@ -49,7 +49,7 @@ class Ad:
     url: str
     price: float
     images: list[str]
-    attributes: list[Attribute]
+    attributes: dict[str, Attribute]
     location: Location
     has_phone: bool
     favorites: int  # Unavailable on Ad from Search
@@ -60,20 +60,19 @@ class Ad:
 
     @staticmethod
     def _build(raw: dict, client: Any) -> "Ad":
-        attributes: list[Attribute] = []
+        attributes: dict[str, Attribute] = {}
         for raw_attribute in raw.get("attributes", []):
-            attributes.append(
-                Attribute(
-                    key=raw_attribute.get("key"),
-                    key_label=raw_attribute.get("key_label"),
-                    value=raw_attribute.get("value"),
-                    value_label=raw_attribute.get("value_label"),
-                    values=raw_attribute.get("values"),
-                    values_label=raw_attribute.get("values_label"),
-                    value_label_reader=raw_attribute.get("value_label_reader"),
-                    generic=raw_attribute.get("generic"),
-                )
+            attribute = Attribute(
+                key=raw_attribute.get("key"),
+                key_label=raw_attribute.get("key_label"),
+                value=raw_attribute.get("value"),
+                value_label=raw_attribute.get("value_label"),
+                values=raw_attribute.get("values"),
+                values_label=raw_attribute.get("values_label"),
+                value_label_reader=raw_attribute.get("value_label_reader"),
+                generic=raw_attribute.get("generic"),
             )
+            attributes[attribute.key] = attribute
 
         raw_location: dict = raw.get("location", {})
         location = Location(
