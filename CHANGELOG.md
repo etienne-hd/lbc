@@ -1,3 +1,13 @@
+## 1.1.6
+
+### Added
+
+- `search_in` argument parsing for url #15
+
+### Changed
+
+- Updated `curl_cffi`
+
 ## 1.1.5
 
 ### Added
