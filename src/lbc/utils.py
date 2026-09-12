@@ -33,6 +33,10 @@ def build_search_payload_with_url(
             case "text":
                 payload["filters"]["keywords"] = {"text": value}
 
+            case "search_in":
+                if value == "subject":
+                    payload["filters"]["keywords"]["type"] = "subject"
+
             case "category":
                 payload["filters"]["category"] = {"id": value}
 
