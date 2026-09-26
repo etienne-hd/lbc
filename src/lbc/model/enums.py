@@ -16,8 +16,8 @@ class Sort(Enum):
     RELEVANCE = ("relevance", None)
     NEWEST = ("time", "desc")
     OLDEST = ("time", "asc")
-    EXPENSIVE = ("price", "asc")
-    CHEAPEST = ("price", "desc")
+    CHEAPEST = ("price", "asc")
+    EXPENSIVE = ("price", "desc")
 
 
 class Department(Enum):
