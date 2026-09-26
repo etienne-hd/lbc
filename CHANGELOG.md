@@ -1,3 +1,10 @@
+## 1.1.7
+
+### Changed
+
+- Corrected the price sort order for the `CHEAPEST` and `EXPENSIVE` enums. #17
+- Updated the list of random impersonation clients. #17
+
 ## 1.1.6
 
 ### Added
