@@ -125,8 +125,21 @@ class SessionMixin:
             requests.Session: A configured session instance ready to send requests.
         """
         if impersonate is None:  # Pick a random browser client
-            impersonate: BrowserTypeLiteral = random.choice(
-                ["safari", "safari_ios", "chrome_android", "firefox"]
+            impersonate = random.choice(
+                [
+                    "chrome99_android",
+                    "chrome131_android",
+                    "safari153",
+                    "safari155",
+                    "safari170",
+                    "safari172_ios",
+                    "tor145",
+                    "chrome_android",
+                    "safari15_3",
+                    "safari15_5",
+                    "safari17_0",
+                    "safari17_2_ios",
+                ]
             )
 
         session = requests.Session(impersonate=impersonate)
