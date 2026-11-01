@@ -44,6 +44,7 @@ class Ad:
     category_name: str
     subject: str
     body: str
+    condition: str | None
     brand: str | None
     ad_type: str
     url: str
@@ -104,6 +105,11 @@ class Ad:
             category_name=raw.get("category_name"),
             subject=raw.get("subject"),
             body=raw.get("body"),
+            condition=(
+                attributes["condition"].value_label
+                if "condition" in attributes
+                else None
+            ),
             brand=next(
                 (
                     attribute.value_label

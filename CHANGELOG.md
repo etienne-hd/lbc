@@ -2,6 +2,7 @@
 
 ### Added
 
+- `Ad.condition` is the `value_label` of the `condition` attribute (for example `"Très bon état"`), or `None` if the ad has none.
 - `RequestTimeout` and `ParseError` exceptions.
 
 ### Changed
