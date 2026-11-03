@@ -35,7 +35,10 @@ class Client(SessionMixin, SearchMixin, UserMixin, AdMixin):
             max_retries (int, optional): Maximum number of times to retry a request in case of failure (403 error). Defaults to 5.
         """
         super().__init__(
-            proxy=proxy, impersonate=impersonate, request_verify=request_verify
+            proxy=proxy,
+            impersonate=impersonate,
+            request_verify=request_verify,
+            timeout=timeout,
         )
 
         self.request_verify = request_verify
@@ -78,7 +81,6 @@ class Client(SessionMixin, SearchMixin, UserMixin, AdMixin):
                 url=url,
                 json=payload,
                 verify=self.request_verify,
-                timeout=self.timeout,
             )
         except Timeout as e:
             raise RequestTimeout("Request timed out.") from e
@@ -97,6 +99,7 @@ class Client(SessionMixin, SearchMixin, UserMixin, AdMixin):
                     proxy=self._proxy,
                     impersonate=self._impersonate,
                     request_verify=self.request_verify,
+                    timeout=self.timeout,
                 )  # Re-init session
                 return self._fetch(
                     method=method, url=url, payload=payload, max_retries=max_retries - 1

@@ -12,10 +12,14 @@ class SessionMixin:
         proxy: Proxy | None = None,
         impersonate: BrowserTypeLiteral = None,
         request_verify: bool = True,
+        timeout: int = 30,
         **kwargs,
     ):
         self.session = self._init_session(
-            proxy=proxy, impersonate=impersonate, request_verify=request_verify
+            proxy=proxy,
+            impersonate=impersonate,
+            request_verify=request_verify,
+            timeout=timeout,
         )
         self._proxy = proxy
         self._impersonate = impersonate
@@ -110,6 +114,7 @@ class SessionMixin:
         proxy: Proxy | None = None,
         impersonate: BrowserTypeLiteral = None,
         request_verify: bool = True,
+        timeout: int = 30,
     ) -> requests.Session:
         """
         Initializes an HTTP session with optional proxy configuration and browser impersonation.
@@ -139,7 +144,7 @@ class SessionMixin:
                 ]
             )
 
-        session = requests.Session(impersonate=impersonate)
+        session = requests.Session(impersonate=impersonate, timeout=timeout)
 
         session.headers.update(
             {
