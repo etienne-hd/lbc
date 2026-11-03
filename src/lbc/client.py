@@ -92,6 +92,7 @@ class Client(SessionMixin, SearchMixin, UserMixin, AdMixin):
                 raise ParseError("Response is not valid JSON.") from e
         elif response.status_code == 403:
             if max_retries > 0:
+                self.session.close()
                 self.session = self._init_session(
                     proxy=self._proxy,
                     impersonate=self._impersonate,
