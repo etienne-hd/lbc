@@ -1,3 +1,13 @@
+## 1.1.9
+
+### Fixed
+
+- Properly handle session timeouts. #24
+
+### Added
+
+- Automatically close the previous session when creating a new one. #25
+
 ## 1.1.8
 
 ### Added
