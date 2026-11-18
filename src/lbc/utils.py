@@ -1,3 +1,5 @@
+from urllib.parse import unquote_plus
+
 from .exceptions import InvalidValue
 from .model import AdType, Category, City, Department, OwnerType, Region, Sort
 
@@ -28,6 +30,7 @@ def build_search_payload_with_url(
         key, value = arg.split(
             "="
         )  # e.g: real_estate_type 3,4 / square 300-400 / category 9
+        value = unquote_plus(value)
 
         match key:
             case "text":
