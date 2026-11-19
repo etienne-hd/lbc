@@ -1,3 +1,9 @@
+## 1.2.0
+
+### Fixed
+
+- Unquote arg value when calling `build_search_payload_with_url`. #26
+
 ## 1.1.9
 
 ### Fixed
