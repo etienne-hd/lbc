@@ -1,6 +1,6 @@
 [project]
 name = "lbc"
-version = "1.2.0"
+version = "1.2.1"
 description = "Unofficial client for Leboncoin API"
 readme = "README.md"
 authors = [
