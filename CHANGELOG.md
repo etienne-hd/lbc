@@ -1,3 +1,9 @@
+## 1.2.1
+
+### Fixed
+
+- Add the missing `api-key` header to `/finder/search`, fixing a 403 error. #27
+
 ## 1.2.0
 
 ### Fixed
