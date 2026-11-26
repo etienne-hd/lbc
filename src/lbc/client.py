@@ -50,6 +50,7 @@ class Client(SessionMixin, SearchMixin, UserMixin, AdMixin):
         method: str,
         url: str,
         payload: dict | None = None,
+        headers: dict | None = None,
         max_retries: int = -1,
     ) -> dict:
         """
@@ -80,6 +81,7 @@ class Client(SessionMixin, SearchMixin, UserMixin, AdMixin):
                 method=method,
                 url=url,
                 json=payload,
+                headers=headers,
                 verify=self.request_verify,
             )
         except Timeout as e:

@@ -67,6 +67,9 @@ class SearchMixin:
             )
 
         body = self._fetch(
-            method="POST", url="https://api.leboncoin.fr/finder/search", payload=payload
+            method="POST",
+            url="https://api.leboncoin.fr/finder/search",
+            payload=payload,
+            headers={"api-key": ""},
         )
         return Search._build(raw=body, client=self)
